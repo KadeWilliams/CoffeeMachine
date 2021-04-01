@@ -5,6 +5,7 @@ profit = 0
 
 
 def report():
+    """Acquire the current status of the machine's resources"""
     water = resources['water']
     coffee = resources['coffee']
     milk = resources['milk']
@@ -12,6 +13,7 @@ def report():
 
 
 def get_drink():
+    """Get user's desired choice, generate the report, or exit the machine"""
     choice = input("What would you like? (espresso/latte/cappuccino): ")
     if choice == 'report':
         print(report())
@@ -25,6 +27,7 @@ def get_drink():
 
 
 def check_resources(drink_ingredients):
+    """Check the current resources of the machine against the required ingredients"""
     for item in drink_ingredients:
         if drink_ingredients[item] > resources[item]:
             print(f"Sorry, there's not enough {item}.")
@@ -33,6 +36,7 @@ def check_resources(drink_ingredients):
 
 
 def get_coins():
+    """Get change from user to pay for drink"""
     total = int(input("How many quarters?: ")) * .25
     total += int(input("How many dimes?: ")) * .1
     total += int(input("How many nickels?: ")) * .05
@@ -41,6 +45,7 @@ def get_coins():
 
 
 def enough_coins(drink):
+    """Check to see if the payment was successful and update profit"""
     wallet = get_coins()
     if wallet >= MENU[drink]['cost']:
         change = wallet - MENU[drink]['cost']
@@ -53,6 +58,7 @@ def enough_coins(drink):
 
 
 def make_coffee(drink, ingredients):
+    """Reduce the amount of resources based on ingredient required"""
     for item in ingredients:
         resources[item] -= ingredients[item]
     return f"Here's your {drink}. Enjoy"
